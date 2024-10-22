@@ -1,184 +1,337 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#e01c34">
+    android:background="#000000"
+    tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Header -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
-        android:background="#180c0c">
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:padding="10dp">
 
-        <!-- Toolbar/Header -->
+        <ImageButton
+            android:id="@+id/menu_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@null"
+            android:src="@drawable/ic_menu" />
+
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="YANIG"
+            android:fontFamily="@font/galano_bold"
+            android:textColor="#D7B98E"
+            android:textStyle="bold"
+            android:textSize="33sp"
+            android:layout_centerInParent="true" />
+
+        <ImageButton
+            android:id="@+id/notification_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_notification"
+            android:layout_marginEnd="75dp"
+            android:layout_marginTop="5dp"
+            android:background="@null"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <!-- Tab Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#000000">
+
+        <TextView
+            android:id="@+id/home_nav_map"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Map"
+            android:fontFamily="@font/galano_med"
+            android:textSize="20sp"
+            android:textColor="@color/text_brown"
+            android:gravity="center"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/home_nav_news"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="News"
+            android:textSize="20sp"
+            android:fontFamily="@font/galano_med"
+            android:textColor="@color/text_brown"
+            android:gravity="center"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/home_nav_stats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stats"
+            android:textSize="20sp"
+            android:fontFamily="@font/galano_med"
+            android:textColor="@color/text_brown"
+            android:gravity="center"
+            android:padding="10dp" />
+    </LinearLayout>
+
+    <!-- Location Selector -->
+    <Button
+        android:id="@+id/loc_select_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Select Location"
+        android:fontFamily="@font/galano_semi"
+        android:textAllCaps="false"
+        android:textColor="@color/brown"
+        android:background="@drawable/rounded_brown"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_margin="4dp" />
+
+    <!-- Google Map Placeholder -->
+    <WebView
+        android:id="@+id/gmaps_embed"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:background="#CCCCCC"
+        android:layout_margin="4dp"/>
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/shelter_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Shelter"
+            android:textSize="19sp"
+            android:fontFamily="@font/galano_semi"
+            android:background="@drawable/login_button"
+            android:textColor="@color/text_light"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/safe_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Safe"
+            android:textSize="19sp"
+            android:fontFamily="@font/galano_semi"
+            android:background="@drawable/login_button"
+            android:textColor="@color/text_light"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/danger_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Danger"
+            android:textSize="19sp"
+            android:fontFamily="@font/galano_semi"
+            android:background="@drawable/login_button"
+            android:textColor="@color/text_light"
+            android:textAllCaps="false"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/rounded_brown"
+        android:padding="10dp"
+        android:layout_margin="4dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location Details"
+            android:textColor="#5C4033"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:fontFamily="@font/galano_semi"
+            android:layout_gravity="center_horizontal"
+            />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_brown">
+
         <LinearLayout
-            android:id="@+id/top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#d32f2f"
-            android:padding="10dp"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <ImageView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="17sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Risk Level:"
+                    android:fontFamily="@font/galano_med"
+                    android:textColor="@color/brown"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/risk_level_txt"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/galano_med"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_height="wrap_content"
+                    android:text="80% High Risk"
+                    android:textColor="@color/red"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textSize="17sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nearest Evacuation Center:"
+                    android:textColor="@color/brown"
+                    android:fontFamily="@font/galano_med"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:textSize="17sp"
+                    android:id="@+id/evacuation_center_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/galano_med"
+                    android:text="CDRRMO Building, Lower Rock Quarry"
+                    android:textColor="@color/red"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/loc_ecenter_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/logo" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="YANIG"
+                android:text="Locate"
+                android:fontFamily="@font/galano_semi"
+                android:background="@drawable/rounded_red"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:layout_marginStart="10dp" />
-        </LinearLayout>
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:layout_gravity="left"
+                android:layout_marginTop="10dp" />
 
-        <!-- Tab Layout -->
-        <LinearLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#000000"
-            android:padding="10dp"
-            app:layout_constraintTop_toBottomOf="@id/top_bar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Map"
-                android:textColor="#FFFFFF"
-                android:gravity="center" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="News"
-                android:textColor="#FFFFFF"
-                android:gravity="center" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Stats"
-                android:textColor="#FFFFFF"
-                android:gravity="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            <!-- Additional Content -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:layout_marginTop="10dp">
 
-                <!-- Google Map View -->
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="#cccccc">
-                    <!-- Google Map Placeholder -->
-                </FrameLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:textSize="17sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:paddingTop="10dp">
+                    android:text="Nearest Hospital:"
+                    android:textColor="@color/brown"
+                    android:fontFamily="@font/galano_reg"
+                    android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/shelter_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Shelter"
-                        android:background="@drawable/login_button"
-                        android:fontFamily="@font/primary" />
-
-                    <Button
-                        android:id="@+id/safe_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Safe"
-                        android:background="@drawable/login_button"
-                        android:fontFamily="@font/primary"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp" />
-
-                    <Button
-                        android:id="@+id/danger_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Danger"
-                        android:background="@drawable/login_button"
-                        android:fontFamily="@font/primary" />
-                </LinearLayout>
-
-                <!-- Location Details -->
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:textSize="17sp"
+                    android:id="@+id/nearest_hospital_txt"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="#f5e0c3"
-                    android:padding="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Location Details"
-                        android:textColor="#e01c34"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="#f5e0c3"
-                    android:padding="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Risk Level: 80% High Risk"
-                        android:textColor="#e01c34"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nearest Evacuation Center: CDRRMO building, Lower Rock Quarry"
-                        android:textColor="#e01c34" />
-                </ScrollView>
-
-                <!-- Buttons for Shelter, Safe, Danger -->
+                    android:fontFamily="@font/galano_reg"
+                    android:text="Pines City Doctors Hospital"
+                    android:textColor="@color/red"
+                    android:textStyle="bold" />
 
             </LinearLayout>
-        </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="17sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location: "
+                    android:fontFamily="@font/galano_med"
+                    android:textColor="#D32F2F"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:textSize="17sp"
+                    android:fontFamily="@font/galano_med"
+                    android:id="@+id/hospital_loc_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Magsaysay Avenue, Baguio City"
+                    android:textColor="@color/red"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/loc_hospital_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Locate"
+                android:fontFamily="@font/galano_semi"
+                android:textSize="17sp"
+                android:textAllCaps="false"
+                android:background="@drawable/rounded_red"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="left"
+                android:layout_marginTop="10dp" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
