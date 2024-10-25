@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/layout_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/menu_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_toStartOf="@+id/app_name"
+            android:background="@null"
+            android:src="@drawable/arrow_back" />
+
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/galano_bold"
+            android:text="Terms and Conditions"
+            android:textColor="#D7B98E"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/settings_body"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_constraintTop_toBottomOf="@+id/layout_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/black">
+
+        <LinearLayout
+            android:id="@+id/settings_body_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/galano_reg"
+                android:text="• Registration and Account Creation Process"
+                android:textColor="#D7B98E"
+                android:textSize="14sp">
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/galano_reg"
+                android:text="Certain additional features and app functionality are available to registered users of the features. Making a personal account is the first step in the registration process, which is partly dependent on services provided by third parties. It is your responsibility to ensure that the registration information you provide is accurate and complete. We do not accept duty for any errors, inaccuracies, or omissions in this information or in the service that results from information you
+submit. You will also be asked to consent to our use of your personal data in line with our Privacy Policy when you register to use our services. In order to register an account for the services, you must be at least eighteen years old if you are a physical person."
+                android:textColor="#D7B98E"
+                android:textSize="14sp"
+                android:layout_marginBottom="20dp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/galano_reg"
+                android:text="• User Account Security"
+                android:textColor="#D7B98E"
+                android:textSize="14sp">
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/galano_reg"
+                android:text="Each user is fully and exclusively accountable for all activities conducted using their account. You commit to alerting Futura Innovation right away if you believe there has been unapproved access to or use of your account."
+                android:textColor="#D7B98E"
+                android:textSize="14sp"
+                android:layout_marginBottom="20dp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/galano_reg"
+                android:text="• Third Party Services"
+                android:textColor="#D7B98E"
+                android:textSize="14sp">
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/galano_reg"
+                android:text="To provide you with access to content, goods, and/or services, the Services are connected with a number of websites, applications, and services operated by third parties (collectively, 'Third Party Services'). You will be subject to and controlled by the terms and conditions and privacy policies of these Third Party Services
+when using them. These Third Party Services may have their own privacy policies and terms and conditions of usage."
+                android:textColor="#D7B98E"
+                android:textSize="14sp"
+                android:layout_marginBottom="50dp">
+
+            </TextView>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

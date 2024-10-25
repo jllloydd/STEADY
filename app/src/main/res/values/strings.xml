@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">STEADY</string>
+    <string-array name="measuring_system_array">
+        <item>Metric</item>
+        <item>Imperial</item>
+    </string-array>
+    <string-array name="urn_array">
+        <item>100 km</item>
+        <item>250 km</item>
+        <item>500 km</item>
+        <item>1000 km</item>
+    </string-array>
+    <string-array name="srn_array_1">
+        <item>0.0</item>
+        <item>0.5</item>
+        <item>1.0</item>
+        <item>1.5</item>
+        <item>2.0</item>
+        <item>2.5</item>
+        <item>3.0</item>
+        <item>3.5</item>
+        <item>4.0</item>
+        <item>4.5</item>
+        <item>5.0</item>
+        <item>5.5</item>
+    </string-array>
+    <string-array name="srn_array_2">
+        <item>Go to the list</item>
+        <item>Go to the map</item>
+    </string-array>
 </resources>

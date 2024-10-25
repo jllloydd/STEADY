@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/layout_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/menu_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_toStartOf="@+id/app_name"
+            android:background="@null"
+            android:src="@drawable/arrow_back" />
+
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/galano_bold"
+            android:text="Information"
+            android:textColor="#D7B98E"
+            android:textSize="33sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/settings_body"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_constraintTop_toBottomOf="@+id/layout_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/black">
+
+        <LinearLayout
+            android:id="@+id/settings_body_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/galano_bold"
+                android:gravity="center"
+                android:text="STEADY"
+                android:textColor="#D7B98E"
+                android:textSize="33sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/galano_reg"
+                android:gravity="center"
+                android:text="Steady (Seismic and Terrain Emergency Alert Directory) makes it possible for your smartphone to receive real-time
+earthquake alerts. STEADY, an IT project, was founded in 2024 with the goal of developing a crowdsourced earthquake early warning system using smartphone networks. Over a thousand of individuals participated in the program, and over 3,000 real-time earthquake alerts were sent by the system. Steady is now the sole public alarm system available in Baguio City."
+                android:textColor="#D7B98E"
+                android:textSize="19sp"
+                android:layout_marginBottom="50dp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/galano_reg"
+                android:gravity="center"
+                android:text="The goal is to detect an earthquake's shaking in real time using the accelerometer built into smartphones. All of the smartphones in the impacted region receive an alert when an earthquake is detected. If you are not too near the epicenter, you will be able to hear the signal before the earthquake's damaging waves reach you, giving you time to seek shelter."
+                android:textColor="#D7B98E"
+                android:textSize="19sp">
+
+            </TextView>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
