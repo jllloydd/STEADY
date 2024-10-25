@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    tools:context=".MainActivity">
+
+    <!-- Header -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/menu_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@null"
+            android:src="@drawable/ic_menu" />
+
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STEADY"
+            android:fontFamily="@font/galano_bold"
+            android:textColor="#D7B98E"
+            android:textStyle="bold"
+            android:textSize="33sp"
+            android:layout_centerInParent="true" />
+
+        <ImageButton
+            android:id="@+id/notification_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_notification"
+            android:layout_marginEnd="75dp"
+            android:layout_marginTop="5dp"
+            android:background="@null"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#000000">
+
+        <Button
+            android:id="@+id/home_nav_map"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Map"
+            android:textAllCaps="false"
+            android:background="none"
+            android:fontFamily="@font/galano_med"
+            android:textSize="20sp"
+            android:textColor="@color/text_brown"
+            android:gravity="center"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/home_nav_news"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="News"
+            android:textAllCaps="false"
+            android:background="none"
+            android:textSize="20sp"
+            android:fontFamily="@font/galano_med"
+            android:textColor="@color/text_brown"
+            android:gravity="center"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/home_nav_stats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stats"
+            android:textAllCaps="false"
+            android:background="none"
+            android:textSize="20sp"
+            android:fontFamily="@font/galano_med"
+            android:textColor="@color/text_brown"
+            android:gravity="center"
+            android:padding="10dp" />
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_marginHorizontal="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <!-- Landslide Prediction Card -->
+            <RelativeLayout
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_white">
+
+                <TextView
+                    android:id="@+id/news_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:fontFamily="@font/galano_semi"
+                    android:gravity="start"
+                    android:text="Landslide Prediction" />
+
+                <TextView
+                    android:id="@+id/news_info"
+                    android:layout_below="@id/news_title"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#808080"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/galano_semi"
+                    android:gravity="start"
+                    android:text="Frequency of Landslides" />
+
+                <ImageView
+                    android:id="@+id/line_placeholder"
+                    android:layout_below="@id/news_info"
+                    android:src="@drawable/line_placeholder"
+                    android:layout_height="80dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/rounded_outline" />
+            </RelativeLayout>
+
+            <!-- High Risk Areas Card -->
+            <RelativeLayout
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_white"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:src="@drawable/pie_placeholder"
+                        android:scaleType="centerCrop"
+                        android:layout_height="150dp"
+                        android:layout_width="150dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/rounded_outline" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/hr_areas"
+                            android:textColor="#000000"
+                            android:textStyle="bold"
+                            android:textSize="23sp"
+                            android:fontFamily="@font/galano_semi"
+                            android:text="High Risk Areas" />
+
+                        <TextView
+                            android:layout_below="@id/hr_areas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/list_hr"
+                            android:textColor="#808080"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/galano_semi"
+                            android:gravity="start"
+                            android:text="1. Irisan\n2. Asin\n3. Kennon\n4. Ambiong" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!-- Landslide Risk Card -->
+            <RelativeLayout
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_white"
+                android:layout_marginTop="10dp">
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="vertical"
+                        >
+
+                        <TextView
+                            android:id="@+id/landslide_risk_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000000"
+                            android:textStyle="bold"
+                            android:textSize="25sp"
+                            android:fontFamily="@font/galano_semi"
+                            android:text="Landslide Risk" />
+
+                        <TextView
+                            android:id="@+id/landslide_risk_location"
+                            android:layout_below="@id/landslide_risk_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#808080"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/galano_semi"
+                            android:gravity="start"
+                            android:text="Baguio City" />
+
+                        <TextView
+                            android:layout_below="@id/landslide_risk_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#000000"
+                            android:textSize="35sp"
+                            android:fontFamily="@font/galano_semi"
+                            android:gravity="start"
+                            android:text="10-25-2024" />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:src="@drawable/percentage_placeholder"
+                        android:layout_height="130dp"
+                        android:layout_width="100dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/rounded_outline" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!-- Recent Earthquakes Card -->
+            <RelativeLayout
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@drawable/rounded_white"
+                android:layout_marginTop="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:textSize="23sp"
+                        android:fontFamily="@font/galano_semi"
+                        android:text="Recent Earthquakes" />
+
+                    <ImageView
+                        android:src="@drawable/table_placeholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/rounded_outline" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
