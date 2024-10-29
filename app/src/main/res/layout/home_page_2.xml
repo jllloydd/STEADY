@@ -25,6 +25,13 @@
             android:background="@null"
             android:src="@drawable/ic_menu" />
 
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="75dp"
+            android:src="@drawable/logo" />
+
         <TextView
             android:id="@+id/app_name"
             android:layout_width="wrap_content"
