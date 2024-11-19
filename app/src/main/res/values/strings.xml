@@ -28,4 +28,6 @@
         <item>Go to the list</item>
         <item>Go to the map</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

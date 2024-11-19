@@ -1,125 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#000000"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
-    <!-- Header -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/red"
-        android:padding="10dp">
-
-        <ImageButton
-            android:id="@+id/menu_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@null"
-            android:src="@drawable/ic_menu" />
-
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="75dp"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:id="@+id/app_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="YANIG"
-            android:fontFamily="@font/galano_bold"
-            android:textColor="#D7B98E"
-            android:textStyle="bold"
-            android:textSize="33sp"
-            android:layout_centerInParent="true" />
-
-        <ImageButton
-            android:id="@+id/notification_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_notification"
-            android:layout_marginEnd="75dp"
-            android:layout_marginTop="5dp"
-            android:background="@null"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-    <!-- Tab Layout -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#000000">
-
-        <TextView
-            android:id="@+id/home_nav_map"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Map"
-            android:fontFamily="@font/galano_med"
-            android:textSize="20sp"
-            android:textColor="@color/text_brown"
-            android:gravity="center"
-            android:padding="10dp" />
-
-        <TextView
-            android:id="@+id/home_nav_news"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="News"
-            android:textSize="20sp"
-            android:fontFamily="@font/galano_med"
-            android:textColor="@color/text_brown"
-            android:gravity="center"
-            android:padding="10dp" />
-
-        <TextView
-            android:id="@+id/home_nav_stats"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Stats"
-            android:textSize="20sp"
-            android:fontFamily="@font/galano_med"
-            android:textColor="@color/text_brown"
-            android:gravity="center"
-            android:padding="10dp" />
-    </LinearLayout>
 
     <!-- Location Selector -->
     <Button
         android:id="@+id/loc_select_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="Select Location"
-        android:fontFamily="@font/galano_semi"
-        android:textAllCaps="false"
-        android:textColor="@color/brown"
+        android:layout_margin="4dp"
         android:background="@drawable/rounded_brown"
+        android:fontFamily="@font/galano_semi"
         android:gravity="center"
         android:padding="10dp"
-        android:layout_margin="4dp" />
+        android:text="Select Location"
+        android:textAllCaps="false"
+        android:textColor="@color/brown"
+        android:textSize="18sp" />
 
     <!-- Google Map Placeholder -->
     <WebView
         android:id="@+id/gmaps_embed"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:background="#CCCCCC"
-        android:layout_margin="4dp"/>
+        android:layout_margin="4dp"
+        android:background="#CCCCCC" />
 
     <!-- Buttons -->
     <LinearLayout
@@ -131,71 +43,70 @@
         <Button
             android:id="@+id/shelter_btn"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Shelter"
-            android:textSize="19sp"
-            android:fontFamily="@font/galano_semi"
+            android:layout_weight="1"
             android:background="@drawable/login_button"
+            android:fontFamily="@font/galano_semi"
+            android:text="Shelter"
+            android:textAllCaps="false"
             android:textColor="@color/text_light"
-            android:textAllCaps="false"/>
+            android:textSize="19sp" />
 
         <Button
             android:id="@+id/safe_btn"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Safe"
-            android:textSize="19sp"
-            android:fontFamily="@font/galano_semi"
-            android:background="@drawable/login_button"
-            android:textColor="@color/text_light"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="4dp"
-            android:textAllCaps="false"/>
+            android:layout_weight="1"
+            android:background="@drawable/login_button"
+            android:fontFamily="@font/galano_semi"
+            android:text="Safe"
+            android:textAllCaps="false"
+            android:textColor="@color/text_light"
+            android:textSize="19sp" />
 
         <Button
             android:id="@+id/danger_btn"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Danger"
-            android:textSize="19sp"
-            android:fontFamily="@font/galano_semi"
+            android:layout_weight="1"
             android:background="@drawable/login_button"
+            android:fontFamily="@font/galano_semi"
+            android:text="Danger"
+            android:textAllCaps="false"
             android:textColor="@color/text_light"
-            android:textAllCaps="false"/>
+            android:textSize="19sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_margin="4dp"
         android:background="@drawable/rounded_brown"
-        android:padding="10dp"
-        android:layout_margin="4dp">
+        android:orientation="vertical"
+        android:padding="10dp">
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/galano_semi"
             android:text="Location Details"
             android:textColor="#5C4033"
-            android:textStyle="bold"
             android:textSize="25sp"
-            android:fontFamily="@font/galano_semi"
-            android:layout_gravity="center_horizontal"
-            />
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:fillViewport="true"
         android:layout_margin="4dp"
-        android:background="@drawable/rounded_brown">
+        android:layout_weight="1"
+        android:background="@drawable/rounded_brown"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -209,23 +120,23 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:textSize="17sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Risk Level:"
                     android:fontFamily="@font/galano_med"
+                    android:text="Risk Level:"
                     android:textColor="@color/brown"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/risk_level_txt"
-                    android:textSize="17sp"
-                    android:fontFamily="@font/galano_med"
                     android:layout_width="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/galano_med"
                     android:text="80% High Risk"
                     android:textColor="@color/red"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -236,22 +147,22 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:textSize="17sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/galano_med"
                     android:text="Nearest Evacuation Center:"
                     android:textColor="@color/brown"
-                    android:fontFamily="@font/galano_med"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:textSize="17sp"
                     android:id="@+id/evacuation_center_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/galano_med"
                     android:text="CDRRMO Building, Lower Rock Quarry"
                     android:textColor="@color/red"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -260,40 +171,40 @@
                 android:id="@+id/loc_ecenter_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Locate"
-                android:fontFamily="@font/galano_semi"
-                android:background="@drawable/rounded_red"
-                android:textColor="#FFFFFF"
-                android:textAllCaps="false"
-                android:textSize="18sp"
                 android:layout_gravity="left"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_red"
+                android:fontFamily="@font/galano_semi"
+                android:text="Locate"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
 
             <!-- Additional Content -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:textSize="17sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/galano_reg"
                     android:text="Nearest Hospital:"
                     android:textColor="@color/brown"
-                    android:fontFamily="@font/galano_reg"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:textSize="17sp"
                     android:id="@+id/nearest_hospital_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/galano_reg"
                     android:text="Pines City Doctors Hospital"
                     android:textColor="@color/red"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -304,23 +215,23 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:textSize="17sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Location: "
                     android:fontFamily="@font/galano_med"
+                    android:text="Location: "
                     android:textColor="#D32F2F"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:textSize="17sp"
-                    android:fontFamily="@font/galano_med"
                     android:id="@+id/hospital_loc_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:fontFamily="@font/galano_med"
                     android:text="Magsaysay Avenue, Baguio City"
                     android:textColor="@color/red"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -329,14 +240,14 @@
                 android:id="@+id/loc_hospital_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Locate"
-                android:fontFamily="@font/galano_semi"
-                android:textSize="17sp"
-                android:textAllCaps="false"
-                android:background="@drawable/rounded_red"
-                android:textColor="#FFFFFF"
                 android:layout_gravity="left"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounded_red"
+                android:fontFamily="@font/galano_semi"
+                android:text="Locate"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp" />
 
         </LinearLayout>
     </ScrollView>

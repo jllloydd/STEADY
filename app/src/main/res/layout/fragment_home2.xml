@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home2"
+    android:background="#000000"
+    android:orientation="vertical">
+
+    <!-- Location Selector -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_margin="15dp">
+
+        <LinearLayout
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/news_card"
+            android:background="@drawable/rounded_brown"
+            android:layout_centerHorizontal="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                >
+
+                <ImageView
+                    android:id="@+id/image_view"
+                    android:src="@drawable/sample"
+                    android:scaleType="centerCrop"
+                    android:layout_height="80dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/rounded_outline"
+                    android:clipToOutline="true"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <ImageView
+                        android:id="@+id/news_logo"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.2"
+                        android:layout_height="20dp"
+                        android:src="@drawable/sample_logo"
+                        android:background="@drawable/rounded_outline"
+                        android:clipToOutline="true"
+                        android:layout_gravity="start">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/news_date"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textColor="#5C4033"
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/galano_semi"
+                        android:gravity="end|center_horizontal"
+                        android:text="Feb 21, 2024">
+                    </TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:id="@+id/news_title"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="0dp"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/galano_semi"
+                        android:gravity="start"
+                        android:text="Magnitude 4.9 earthquake strikes Mountain Province">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/news_info"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#808080"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/galano_semi"
+                        android:gravity="start"
+                        android:text="BAGUIO CITY - A magnitude 4.9 earthquake str...">
+                    </TextView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

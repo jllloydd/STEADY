@@ -5,104 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#000000"
-    tools:context=".MainActivity">
-
-    <!-- Header -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/red"
-        android:padding="10dp">
-
-        <ImageButton
-            android:id="@+id/menu_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@null"
-            android:src="@drawable/ic_menu" />
-
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="75dp"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:id="@+id/app_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="STEADY"
-            android:fontFamily="@font/galano_bold"
-            android:textColor="#D7B98E"
-            android:textStyle="bold"
-            android:textSize="33sp"
-            android:layout_centerInParent="true" />
-
-        <ImageButton
-            android:id="@+id/notification_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_notification"
-            android:layout_marginEnd="75dp"
-            android:layout_marginTop="5dp"
-            android:background="@null"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-
-    <!-- Tab Layout -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#000000">
-
-        <Button
-            android:id="@+id/home_nav_map"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Map"
-            android:textAllCaps="false"
-            android:background="none"
-            android:fontFamily="@font/galano_med"
-            android:textSize="20sp"
-            android:textColor="@color/text_brown"
-            android:gravity="center"
-            android:padding="10dp" />
-
-        <Button
-            android:id="@+id/home_nav_news"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="News"
-            android:textAllCaps="false"
-            android:background="none"
-            android:textSize="20sp"
-            android:fontFamily="@font/galano_med"
-            android:textColor="@color/text_brown"
-            android:gravity="center"
-            android:padding="10dp" />
-
-        <Button
-            android:id="@+id/home_nav_stats"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Stats"
-            android:textAllCaps="false"
-            android:background="none"
-            android:textSize="20sp"
-            android:fontFamily="@font/galano_med"
-            android:textColor="@color/text_brown"
-            android:gravity="center"
-            android:padding="10dp" />
-    </LinearLayout>
+    android:background="#000000">
 
     <!-- Location Selector -->
 
@@ -112,14 +15,13 @@
         android:fillViewport="true"
         android:layout_margin="15dp">
 
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/news_card"
-                app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/light_brown"
+                android:background="@drawable/rounded_brown"
                 android:layout_centerHorizontal="true">
 
                 <LinearLayout
@@ -211,7 +113,7 @@
                 </LinearLayout>
 
 
-            </android.support.v7.widget.CardView>
+            </LinearLayout>
 
     </ScrollView>
 
