@@ -1,0 +1,30 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/drawer_settings"
+        android:title="Settings" />
+    <item
+        android:id="@+id/info"
+        android:icon="@drawable/drawer_info"
+        android:title="Info" />
+    <item
+        android:id="@+id/faq"
+        android:icon="@drawable/drawer_faq"
+        android:title="FAQ" />
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/drawer_help"
+        android:title="Help" />
+    <item
+        android:id="@+id/terms"
+        android:icon="@drawable/drawer_terms"
+        android:title="Terms and Conditions" />
+    <item
+        android:id="@+id/signOut"
+        android:icon="@drawable/drawer_signout"
+        android:title="Sign Out" />
+
+</menu>

@@ -3,6 +3,7 @@ package com.bonak.steady
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 
 open class BaseActivity : FragmentActivity() {
 

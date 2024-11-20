@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context=".InfoActivity">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,52 +15,49 @@
         android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ImageButton
-            android:id="@+id/menu_icon"
+            android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="20dp"
-            android:layout_toStartOf="@+id/app_name"
+            android:layout_marginTop="4dp"
             android:background="@null"
-            android:src="@drawable/arrow_back" />
+            android:src="@drawable/arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/app_name"
+            android:id="@+id/settings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:fontFamily="@font/galano_bold"
-            android:text="Information"
+            android:text="Info"
             android:textColor="#D7B98E"
             android:textSize="33sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <RelativeLayout
-        android:id="@+id/settings_body"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        app:layout_constraintTop_toBottomOf="@+id/layout_header"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/layout_header"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/black">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:id="@+id/settings_body_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
-            android:padding="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:padding="20dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -68,9 +68,7 @@
                 android:textColor="#D7B98E"
                 android:textSize="33sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="20dp">
-
-            </TextView>
+                android:layout_marginBottom="20dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -81,9 +79,7 @@
 earthquake alerts. STEADY, an IT project, was founded in 2024 with the goal of developing a crowdsourced earthquake early warning system using smartphone networks. Over a thousand of individuals participated in the program, and over 3,000 real-time earthquake alerts were sent by the system. Steady is now the sole public alarm system available in Baguio City."
                 android:textColor="#D7B98E"
                 android:textSize="19sp"
-                android:layout_marginBottom="50dp">
-
-            </TextView>
+                android:layout_marginBottom="20dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -92,13 +88,10 @@ earthquake alerts. STEADY, an IT project, was founded in 2024 with the goal of d
                 android:gravity="center"
                 android:text="The goal is to detect an earthquake's shaking in real time using the accelerometer built into smartphones. All of the smartphones in the impacted region receive an alert when an earthquake is detected. If you are not too near the epicenter, you will be able to hear the signal before the earthquake's damaging waves reach you, giving you time to seek shelter."
                 android:textColor="#D7B98E"
-                android:textSize="19sp">
-
-            </TextView>
-
+                android:textSize="19sp" />
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
