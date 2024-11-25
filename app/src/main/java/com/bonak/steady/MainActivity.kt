@@ -108,7 +108,6 @@ class MainActivity : BaseActivity() {
         builder.setPositiveButton("Yes") { dialog, _ ->
             Toast.makeText(this, "Signing you out...", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
-            // Add sign-out logic here
         }
 
         builder.setNegativeButton("No") { dialog, _ ->

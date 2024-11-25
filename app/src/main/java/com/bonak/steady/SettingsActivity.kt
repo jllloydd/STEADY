@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.ImageButton
 import android.view.View
+import android.widget.LinearLayout
+import android.content.Intent
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -15,5 +17,16 @@ class SettingsActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             finish()
         }
+
+        findViewById<LinearLayout>(R.id.ms_md).setOnClickListener {
+            val intent = Intent(this, MsMdActivity::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<LinearLayout>(R.id.sr_notif).setOnClickListener {
+            val intent = Intent(this, SrNotifActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

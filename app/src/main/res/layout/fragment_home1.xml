@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home1"
-    android:background="#000000"
-    android:orientation="vertical">
+    tools:context=".Home1">
 
-        <!-- Location Selector -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:orientation="vertical">
+
         <Button
             android:id="@+id/loc_select_btn"
             android:layout_width="match_parent"
@@ -248,4 +251,9 @@
 
             </LinearLayout>
         </ScrollView>
-</LinearLayout>
+
+    </LinearLayout>
+
+        <!-- Location Selector -->
+
+</ScrollView>

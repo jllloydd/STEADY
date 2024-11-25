@@ -7,14 +7,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 
     override fun getItemCount(): Int {
-        return 3 // Replace with the actual number of fragments
+        return 3
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> Home1() // Replace with your fragment class
-            1 -> Home2() // Replace with your fragment class
-            2 -> Home3() // Replace with your fragment class
+            0 -> Home1()
+            1 -> Home2()
+            2 -> Home3()
             else -> throw IllegalArgumentException("Invalid position: $position")
         }
     }

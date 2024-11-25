@@ -64,37 +64,6 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:id="@+id/rt_alert"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:src="@drawable/alert_icon">
-
-                </ImageView>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/galano_reg"
-                    android:text="Real time alert"
-                    android:textColor="#D7B98E"
-                    android:textSize="20sp"
-                    android:textStyle="bold">
-
-                </TextView>
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/ms_md"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,37 +86,6 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/galano_reg"
                     android:text="Measuring system and map data"
-                    android:textColor="#D7B98E"
-                    android:textSize="20sp"
-                    android:textStyle="bold">
-
-                </TextView>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ur_notif"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
-                    android:src="@drawable/notif">
-
-                </ImageView>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/galano_reg"
-                    android:text="User report notifications"
                     android:textColor="#D7B98E"
                     android:textSize="20sp"
                     android:textStyle="bold">

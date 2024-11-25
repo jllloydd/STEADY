@@ -4,12 +4,6 @@
         <item>Metric</item>
         <item>Imperial</item>
     </string-array>
-    <string-array name="urn_array">
-        <item>100 km</item>
-        <item>250 km</item>
-        <item>500 km</item>
-        <item>1000 km</item>
-    </string-array>
     <string-array name="srn_array_1">
         <item>0.0</item>
         <item>0.5</item>
