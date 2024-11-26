@@ -8,7 +8,7 @@ interface SerpApiService {
     @GET("search")
     fun getGoogleNews(
         @Query("q") query: String,
-        @Query("tbm") tbm: String = "nws", // 'nws' for news
+        @Query("tbm") tbm: String = "nws",
         @Query("api_key") apiKey: String
     ): Call<SerpApiResponse>
 }

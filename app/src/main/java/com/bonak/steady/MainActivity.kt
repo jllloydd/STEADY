@@ -73,6 +73,7 @@ class MainActivity : BaseActivity() {
 
         val viewPagerAdapter = ViewPagerAdapter(this)
         viewPager.adapter = viewPagerAdapter
+        viewPager.offscreenPageLimit = 2
 
         tabLayout.setBackgroundColor(resources.getColor(R.color.black, theme))
 

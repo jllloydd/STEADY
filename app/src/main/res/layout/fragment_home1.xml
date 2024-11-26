@@ -26,8 +26,8 @@
             android:textSize="18sp" />
 
         <!-- Google Map Placeholder -->
-        <WebView
-            android:id="@+id/gmaps_embed"
+        <com.bonak.steady.CustomMapView
+            android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:layout_margin="4dp"

@@ -59,6 +59,9 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.glide)
     implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.osmdroid.android)
+    implementation(libs.androidx.preference)
+    implementation(libs.play.services.location)
     kapt(libs.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -68,5 +71,4 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.mpandroidchart)
-
 }
