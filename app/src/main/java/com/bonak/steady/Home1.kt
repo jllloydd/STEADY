@@ -1,6 +1,7 @@
 package com.bonak.steady
 
 import android.Manifest
+
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -37,6 +38,9 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import android.view.MotionEvent
+import com.bonak.steady.shelterLocations
+import com.bonak.steady.safeLocations
+import com.bonak.steady.dangerLocations
 
 class Home1 : Fragment() {
 
@@ -112,6 +116,21 @@ class Home1 : Fragment() {
         mapView = view.findViewById(R.id.map)
         mapView.setTileSource(TileSourceFactory.MAPNIK)
         mapView.setMultiTouchControls(true)
+
+        val shelterBtn: Button = view.findViewById(R.id.shelter_btn)
+        shelterBtn.setOnClickListener {
+            addMarkersToMap(shelterLocations, "Shelter")
+        }
+
+        val safeBtn: Button = view.findViewById(R.id.safe_btn)
+        safeBtn.setOnClickListener {
+            addMarkersToMap(safeLocations, "Safe")
+        }
+
+        val dangerBtn: Button = view.findViewById(R.id.danger_btn)
+        dangerBtn.setOnClickListener {
+            addMarkersToMap(dangerLocations, "Danger")
+        }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
@@ -231,6 +250,39 @@ class Home1 : Fragment() {
                 mapViewModel.mapCenter = geoPoint
                 mapViewModel.mapZoomLevel = 18.0
             }
+        }
+    }
+
+    private fun addMarkersToMap(locations: List<LocationData>, label: String) {
+        mapView.overlays.clear()
+
+        for (location in locations) {
+            val marker = Marker(mapView)
+            marker.position = location.geoPoint
+            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+            marker.title = location.name
+
+
+            marker.setIcon(resources.getDrawable(org.osmdroid.library.R.drawable.marker_default, null))
+
+            mapView.overlays.add(marker)
+        }
+
+
+        val textOverlay = TextOverlay("Showing $label locations")
+        mapView.overlays.add(textOverlay)
+
+
+        val currentLocationOverlay = CurrentLocationOverlay {
+            resetToCurrentLocation()
+        }
+        mapView.overlays.add(currentLocationOverlay)
+
+
+        if (locations.isNotEmpty()) {
+            val mapController = mapView.controller
+            mapController.setCenter(locations[0].geoPoint)
+            mapController.setZoom(15.0)
         }
     }
 
