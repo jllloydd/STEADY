@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.osmdroid.android)
     implementation(libs.androidx.preference)
     implementation(libs.play.services.location)
+    implementation(libs.okhttp)
     kapt(libs.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
