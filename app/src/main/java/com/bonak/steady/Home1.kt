@@ -1,7 +1,6 @@
 package com.bonak.steady
 
 import android.Manifest
-
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -10,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -29,6 +29,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Job
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.text.Editable
@@ -48,11 +49,35 @@ class Home1 : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val mapViewModel: MapViewModel by activityViewModels()
 
+    private var referenceLocation: GeoPoint? = null
+
+    private var searchJob: Job? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home1, container, false)
+
+        mapView = view.findViewById(R.id.map)
+        mapView.setTileSource(TileSourceFactory.MAPNIK)
+        mapView.setMultiTouchControls(true)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            setInitialLocation()
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                1
+            )
+        }
 
         val locSelectBtn: Button = view.findViewById(R.id.loc_select_btn)
 
@@ -67,34 +92,30 @@ class Home1 : Fragment() {
             val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_dropdown_item_1line)
             input.setAdapter(adapter)
 
-            input.setOnItemClickListener { _, _, position, _ ->
-                val selectedSuggestion = adapter.getItem(position)
-                performSearch(selectedSuggestion ?: "")
-            }
-
             input.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                    // No action needed
-                }
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    CoroutineScope(Dispatchers.IO).launch {
+                    searchJob?.cancel()
+                    searchJob = CoroutineScope(Dispatchers.IO).launch {
                         try {
                             val suggestions = NominatimApi.service.searchLocations(s.toString())
                             withContext(Dispatchers.Main) {
-                                adapter.clear()
-                                adapter.addAll(suggestions.map { it.display_name })
-                                adapter.notifyDataSetChanged()
+                                if (suggestions.isNotEmpty()) {
+                                    adapter.clear()
+                                    adapter.addAll(suggestions.map { it.display_name })
+                                    adapter.notifyDataSetChanged()
+                                } else {
+
+                                }
                             }
                         } catch (e: Exception) {
-                            // Handle exceptions
+
                         }
                     }
                 }
 
-                override fun afterTextChanged(s: Editable?) {
-                    // No action needed
-                }
+                override fun afterTextChanged(s: Editable?) {}
             })
 
             builder.setPositiveButton("OK") { dialog, _ ->
@@ -181,6 +202,70 @@ class Home1 : Fragment() {
         return view
     }
 
+    private fun setInitialLocation() {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                location?.let {
+                    val geoPoint = GeoPoint(it.latitude, it.longitude)
+                    referenceLocation = geoPoint
+                    updateNearestLocationsUI()
+
+                    mapView.overlays.clear()
+
+                    val startMarker = Marker(mapView)
+                    startMarker.position = geoPoint
+                    startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                    startMarker.title = "Current Location"
+                    mapView.overlays.add(startMarker)
+
+                    val currentLocationOverlay = CurrentLocationOverlay {
+                        resetToCurrentLocation()
+                    }
+                    mapView.overlays.add(currentLocationOverlay)
+
+                    val mapController = mapView.controller
+                    mapController.setCenter(geoPoint)
+                    mapController.setZoom(18.0)
+
+                    mapViewModel.mapCenter = geoPoint
+                    mapViewModel.mapZoomLevel = 18.0
+                }
+            }
+        } else {
+            // Request location permission if not granted
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                1
+            )
+        }
+    }
+
+    private fun findNearestHospital(): LocationData? {
+        return referenceLocation?.let { refLoc ->
+            hospitalLocations.minByOrNull { it.geoPoint.distanceToAsDouble(refLoc) }
+        }
+    }
+
+    private fun findNearestEvacuationCenter(): LocationData? {
+        return referenceLocation?.let { refLoc ->
+            shelterLocations.minByOrNull { it.geoPoint.distanceToAsDouble(refLoc) }
+        }
+    }
+
+    private fun updateNearestLocationsUI() {
+        val nearestHospital = findNearestHospital()
+        nearestHospital?.let {
+            view?.findViewById<TextView>(R.id.nearest_hospital_txt)?.text = it.name
+            view?.findViewById<TextView>(R.id.hospital_loc_txt)?.text = it.address
+        }
+
+        val nearestEvacuationCenter = findNearestEvacuationCenter()
+        nearestEvacuationCenter?.let {
+            view?.findViewById<TextView>(R.id.evacuation_center_txt)?.text = it.name
+        }
+    }
+
     private fun performSearch(query: String) {
         val geocoder = Geocoder(requireContext())
 
@@ -191,6 +276,9 @@ class Home1 : Fragment() {
                     if (!addresses.isNullOrEmpty()) {
                         val address = addresses[0]
                         val geoPoint = GeoPoint(address.latitude, address.longitude)
+
+                        referenceLocation = geoPoint
+                        updateNearestLocationsUI()
 
                         mapView.overlays.clear()
 
@@ -211,10 +299,10 @@ class Home1 : Fragment() {
 
                         mapViewModel.mapCenter = geoPoint
                         mapViewModel.mapZoomLevel = 18.0
-                    } else {
                     }
                 }
             } catch (e: Exception) {
+                // Handle exceptions
             }
         }
     }
@@ -229,6 +317,9 @@ class Home1 : Fragment() {
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             location?.let {
                 val geoPoint = GeoPoint(it.latitude, it.longitude)
+
+                referenceLocation = geoPoint
+                updateNearestLocationsUI()
 
                 mapView.overlays.clear()
 
@@ -290,7 +381,7 @@ class Home1 : Fragment() {
         private val outerCirclePaint = Paint().apply {
             color = android.graphics.Color.BLUE
             style = Paint.Style.FILL
-            alpha = 50 // Semi-transparent
+            alpha = 50
         }
         private val innerCirclePaint = Paint().apply {
             color = android.graphics.Color.BLUE
