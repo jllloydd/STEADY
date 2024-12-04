@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.preference)
     implementation(libs.play.services.location)
     implementation(libs.okhttp)
+    implementation(libs.lifecycle.runtime.ktx)
     kapt(libs.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

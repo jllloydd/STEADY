@@ -11,18 +11,26 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.EditText
+import android.util.Log
+import androidx.lifecycle.lifecycleScope
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.google.android.gms.location.Priority
 import androidx.fragment.app.activityViewModels
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import org.osmdroid.config.Configuration
 import androidx.preference.PreferenceManager
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
+import org.osmdroid.views.overlay.Polyline
+import java.util.*
 import android.location.Geocoder
 import android.location.Address
 import kotlinx.coroutines.CoroutineScope
@@ -42,6 +50,9 @@ import android.view.MotionEvent
 import com.bonak.steady.shelterLocations
 import com.bonak.steady.safeLocations
 import com.bonak.steady.dangerLocations
+import com.bonak.steady.OsrmApiService
+import com.bonak.steady.OsrmResponse
+import android.speech.tts.TextToSpeech
 
 class Home1 : Fragment() {
 
@@ -49,9 +60,17 @@ class Home1 : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val mapViewModel: MapViewModel by activityViewModels()
 
+    private lateinit var locationCallback: LocationCallback
+    private var currentLocationMarker: Marker? = null
+    private lateinit var textToSpeech: TextToSpeech
+
+    private var destinationGeoPoint: GeoPoint? = null
+
     private var referenceLocation: GeoPoint? = null
 
     private var searchJob: Job? = null
+
+    private var isNavigationActive: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +83,27 @@ class Home1 : Fragment() {
         mapView.setMultiTouchControls(true)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                for (location in locationResult.locations) {
+                    val currentGeoPoint = GeoPoint(location.latitude, location.longitude)
+                    updateCurrentLocationOnMap(currentGeoPoint)
+                    destinationGeoPoint?.let { destination ->
+                        updateRouteToDestination(currentGeoPoint, destination)
+                    }
+                }
+            }
+        }
+
+        textToSpeech = TextToSpeech(requireContext()) { status ->
+            if (status == TextToSpeech.SUCCESS) {
+                textToSpeech.language = Locale.US
+            }
+        }
+
+        checkLocationPermission()
+        startLocationUpdates()
 
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -80,6 +120,24 @@ class Home1 : Fragment() {
         }
 
         val locSelectBtn: Button = view.findViewById(R.id.loc_select_btn)
+
+        val locEcenterBtn: Button = view.findViewById(R.id.loc_ecenter_btn)
+
+        locEcenterBtn.setOnClickListener {
+            val nearestEvacuationCenter = findNearestEvacuationCenter()
+            nearestEvacuationCenter?.let {
+                showDirectionsToLocation(it.geoPoint)
+            }
+        }
+
+        val locHospitalBtn: Button = view.findViewById(R.id.loc_hospital_btn)
+
+        locHospitalBtn.setOnClickListener {
+            val nearestHospital = findNearestHospital()
+            nearestHospital?.let {
+                showDirectionsToLocation(it.geoPoint)
+            }
+        }
 
         locSelectBtn.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
@@ -210,18 +268,17 @@ class Home1 : Fragment() {
                     referenceLocation = geoPoint
                     updateNearestLocationsUI()
 
-                    mapView.overlays.clear()
 
-                    val startMarker = Marker(mapView)
-                    startMarker.position = geoPoint
-                    startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-                    startMarker.title = "Current Location"
-                    mapView.overlays.add(startMarker)
-
-                    val currentLocationOverlay = CurrentLocationOverlay {
-                        resetToCurrentLocation()
+                    if (currentLocationMarker == null) {
+                        currentLocationMarker = Marker(mapView).apply {
+                            position = geoPoint
+                            setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                            title = "Current Location"
+                            mapView.overlays.add(this)
+                        }
+                    } else {
+                        currentLocationMarker?.position = geoPoint
                     }
-                    mapView.overlays.add(currentLocationOverlay)
 
                     val mapController = mapView.controller
                     mapController.setCenter(geoPoint)
@@ -232,13 +289,139 @@ class Home1 : Fragment() {
                 }
             }
         } else {
-            // Request location permission if not granted
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 1
             )
         }
+    }
+
+    private fun checkLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
+        }
+    }
+
+    private fun startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 5000)
+                .setMinUpdateIntervalMillis(2000)
+                .build()
+
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
+        }
+    }
+
+    private fun updateCurrentLocationOnMap(currentGeoPoint: GeoPoint) {
+        CoroutineScope(Dispatchers.Main).launch {
+            if (currentLocationMarker == null) {
+                currentLocationMarker = Marker(mapView).apply {
+                    setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                    title = "Current Location"
+                    mapView.overlays.add(this)
+                }
+            }
+            currentLocationMarker?.position = currentGeoPoint
+            mapView.controller.setCenter(currentGeoPoint)
+            mapView.invalidate()
+        }
+    }
+
+    private fun showDirectionsToLocation(destination: GeoPoint) {
+        destinationGeoPoint = destination
+        isNavigationActive = true // Set navigation active
+        referenceLocation?.let { startLocation ->
+            viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    val directions = fetchDirections(startLocation, destination)
+                    withContext(Dispatchers.Main) {
+                        if (isNavigationActive) { // Check navigation state
+                            displayRouteOnMap(directions, startLocation, destination)
+                            provideTurnByTurnInstructions(directions)
+                            setupCancelNavigationOverlay()
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e("Home1", "Error fetching directions: ${e.message}")
+                }
+            }
+        }
+    }
+
+    private fun setupCancelNavigationOverlay() {
+
+        if (mapView.overlays.none { it is CancelNavigationOverlay }) {
+            val cancelOverlay = CancelNavigationOverlay {
+                clearRouteAndMarkers()
+            }
+            mapView.overlays.add(cancelOverlay)
+        }
+    }
+
+    private fun clearRouteAndMarkers() {
+        Log.d("Home1", "Clearing route and markers")
+        mapView.overlays.clear()
+
+        isNavigationActive = false // Reset navigation state
+
+        referenceLocation?.let { currentLocation ->
+            val currentMarker = Marker(mapView)
+            currentMarker.position = currentLocation
+            currentMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+            currentMarker.title = "Current Location"
+            mapView.overlays.add(currentMarker)
+        }
+
+        mapView.invalidate()
+        Log.d("Home1", "Map reset complete")
+    }
+
+    private suspend fun fetchDirections(start: GeoPoint, end: GeoPoint): List<GeoPoint> {
+        val startString = "${start.longitude},${start.latitude}"
+        val endString = "${end.longitude},${end.latitude}"
+
+        val response = NetworkModule.osrmApiService.getRoute(startString, endString)
+
+        val route = response.routes.firstOrNull()
+        return if (route != null) {
+            decodePolyline(route.geometry)
+        } else {
+            emptyList()
+        }
+    }
+
+    private fun displayRouteOnMap(route: List<GeoPoint>, current: GeoPoint, destination: GeoPoint) {
+        mapView.overlays.clear()
+
+
+        val polyline = Polyline()
+        polyline.setPoints(route)
+        polyline.title = "Route"
+        mapView.overlays.add(polyline)
+
+
+        val currentMarker = Marker(mapView)
+        currentMarker.position = current
+        currentMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+        currentMarker.title = "Current Location"
+        mapView.overlays.add(currentMarker)
+
+
+        val destinationMarker = Marker(mapView)
+        destinationMarker.position = destination
+        destinationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+        destinationMarker.title = "Destination"
+        mapView.overlays.add(destinationMarker)
+
+
+        mapView.invalidate()
+    }
+
+    private fun provideTurnByTurnInstructions(route: List<GeoPoint>) {
+
+        // Optionally, use TextToSpeech for voice guidance
+        textToSpeech.speak("Follow the route to your destination.", TextToSpeech.QUEUE_FLUSH, null, null)
     }
 
     private fun findNearestHospital(): LocationData? {
@@ -302,7 +485,22 @@ class Home1 : Fragment() {
                     }
                 }
             } catch (e: Exception) {
-                // Handle exceptions
+            }
+        }
+    }
+
+    private fun updateRouteToDestination(currentLocation: GeoPoint, destination: GeoPoint) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val directions = fetchDirections(currentLocation, destination)
+                withContext(Dispatchers.Main) {
+                    if (isNavigationActive) {
+                        displayRouteOnMap(directions, currentLocation, destination)
+                        setupCancelNavigationOverlay()
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("Home1", "Error updating route: ${e.message}")
             }
         }
     }
@@ -421,6 +619,9 @@ class Home1 : Fragment() {
         super.onPause()
         mapView.onPause()
 
+        fusedLocationClient.removeLocationUpdates(locationCallback)
+        textToSpeech.stop()
+
         mapViewModel.mapCenter = mapView.mapCenter as GeoPoint
         mapViewModel.mapZoomLevel = mapView.zoomLevelDouble
     }
@@ -433,5 +634,6 @@ class Home1 : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         mapView.onDetach()
+        textToSpeech.shutdown()
     }
 }
