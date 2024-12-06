@@ -451,8 +451,8 @@ class Home1 : Fragment() {
                         mapViewModel.mapZoomLevel = 18.0
 
                         // Make the locate buttons invisible
-                        //view?.findViewById<Button>(R.id.loc_ecenter_btn)?.visibility = View.INVISIBLE
-                        //view?.findViewById<Button>(R.id.loc_hospital_btn)?.visibility = View.INVISIBLE
+                        view?.findViewById<Button>(R.id.loc_ecenter_btn)?.visibility = View.INVISIBLE
+                        view?.findViewById<Button>(R.id.loc_hospital_btn)?.visibility = View.INVISIBLE
                     }
                 }
             } catch (e: Exception) {
@@ -507,6 +507,9 @@ class Home1 : Fragment() {
                 val mapController = mapView.controller
                 mapController.setCenter(geoPoint)
                 mapController.setZoom(18.0)
+
+                view?.findViewById<Button>(R.id.loc_ecenter_btn)?.visibility = View.VISIBLE
+                view?.findViewById<Button>(R.id.loc_hospital_btn)?.visibility = View.VISIBLE
 
                 mapViewModel.mapCenter = geoPoint
                 mapViewModel.mapZoomLevel = 18.0
