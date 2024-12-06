@@ -103,7 +103,6 @@ class Home1 : Fragment() {
         }
 
         checkLocationPermission()
-        startLocationUpdates()
 
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
@@ -201,16 +200,6 @@ class Home1 : Fragment() {
             addMarkersToMap(shelterLocations, "Shelter")
         }
 
-        val safeBtn: Button = view.findViewById(R.id.safe_btn)
-        safeBtn.setOnClickListener {
-            addMarkersToMap(safeLocations, "Safe")
-        }
-
-        val dangerBtn: Button = view.findViewById(R.id.danger_btn)
-        dangerBtn.setOnClickListener {
-            addMarkersToMap(dangerLocations, "Danger")
-        }
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         val currentLocationOverlay = CurrentLocationOverlay {
@@ -222,40 +211,6 @@ class Home1 : Fragment() {
         mapController.setZoom(mapViewModel.mapZoomLevel)
         mapController.setCenter(mapViewModel.mapCenter ?: GeoPoint(48.8583, 2.2944))
 
-        if (mapViewModel.mapCenter == null) {
-
-            if (ActivityCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-
-                fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                    if (location != null) {
-                        val userLocation = GeoPoint(location.latitude, location.longitude)
-                        mapController.setZoom(18.0)
-                        mapController.setCenter(userLocation)
-
-                        val startMarker = Marker(mapView)
-                        startMarker.position = userLocation
-                        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-                        startMarker.title = "You are here"
-                        mapView.overlays.add(startMarker)
-
-
-                        mapViewModel.mapCenter = userLocation
-                        mapViewModel.mapZoomLevel = 18.0
-                    }
-                }
-            } else {
-
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    1
-                )
-            }
-        }
 
         return view
     }
@@ -330,13 +285,14 @@ class Home1 : Fragment() {
 
     private fun showDirectionsToLocation(destination: GeoPoint) {
         destinationGeoPoint = destination
-        isNavigationActive = true // Set navigation active
+        isNavigationActive = true
         referenceLocation?.let { startLocation ->
             viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     val directions = fetchDirections(startLocation, destination)
                     withContext(Dispatchers.Main) {
-                        if (isNavigationActive) { // Check navigation state
+                        if (isNavigationActive) {
+                            startLocationUpdates()
                             displayRouteOnMap(directions, startLocation, destination)
                             provideTurnByTurnInstructions(directions)
                             setupCancelNavigationOverlay()
