@@ -49,8 +49,6 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.view.MotionEvent
 import com.bonak.steady.shelterLocations
-import com.bonak.steady.safeLocations
-import com.bonak.steady.dangerLocations
 import com.bonak.steady.OsrmApiService
 import com.bonak.steady.OsrmResponse
 import android.speech.tts.TextToSpeech
@@ -162,7 +160,7 @@ class Home1 : Fragment() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     searchJob?.cancel()
                     searchJob = CoroutineScope(Dispatchers.IO).launch {
-                        delay(300) // Debounce delay of 300ms
+                        delay(100)
                         try {
                             val results = NominatimApi.service.searchLocations(s.toString())
                             withContext(Dispatchers.Main) {

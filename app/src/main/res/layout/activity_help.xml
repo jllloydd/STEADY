@@ -136,51 +136,6 @@ Benguet Electric Cooperative (BENECO) (074) 637-4400 0908-865-7202
 
             </TextView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="10dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/galano_bold"
-                    android:text="Contact Number"
-                    android:gravity="center"
-                    android:textColor="#D7B98E"
-                    android:textSize="30sp"
-                    android:layout_marginBottom="15dp">
-
-                </TextView>
-
-                <CheckBox android:id="@+id/checkbox_alarm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#D7B98E"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/galano_reg"
-                    android:text="In case of emergency, would you like for your number to be automatically contacted by the authorities if not active by 7 days?"
-                    android:buttonTint="@color/brown"
-                    android:layout_marginBottom="40dp"/>
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/rta_save_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save"
-                android:fontFamily="@font/galano_semi"
-                android:background="@drawable/rounded_red"
-                android:textColor="#FFFFFF"
-                android:textAllCaps="false"
-                android:textSize="18sp"
-                android:layout_gravity="right"
-                android:layout_marginTop="10dp" />
-
-
         </LinearLayout>
 
     </ScrollView>

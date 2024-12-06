@@ -15,16 +15,6 @@ val shelterLocations = listOf(
     LocationData("Loakan Proper Barangay Hall", GeoPoint(16.37685729158721, 120.61353215331293), "29 Purok Bubon, Laoakan, Baguio, 2600 Benguet")
 )
 
-val safeLocations = listOf(
-    LocationData("Safe 1", GeoPoint(48.8606, 2.3376), "Placeholder"),
-    LocationData("Safe 2", GeoPoint(48.8625, 2.2875), "Placeholder")
-)
-
-val dangerLocations = listOf(
-    LocationData("Danger 1", GeoPoint(48.8530, 2.3499), "Placeholder"),
-    LocationData("Danger 2", GeoPoint(48.8510, 2.3560),"Placeholder")
-)
-
 val hospitalLocations = listOf(
     LocationData("Baguio General Hospital and Medical Center", GeoPoint(16.40115753517385, 120.59569601910988), "Gov. Pack Rd, Baguio, 2600 Benguet"),
     LocationData("Benguet General Hospital", GeoPoint(16.450759939478445, 120.58914362376635), "FH2Q+8M2, Halsema Highway, La Trinidad, 2601 Benguet"),

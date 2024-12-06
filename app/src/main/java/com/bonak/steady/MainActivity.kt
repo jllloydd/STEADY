@@ -37,17 +37,9 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        val notificationIcon: ImageButton = findViewById(R.id.notification_icon)
-        notificationIcon.setOnClickListener {
-            showNotificationDialog() //Placeholder for notification behavior
-        }
-
         val navigationView: NavigationView = findViewById(R.id.navigation_view)
         navigationView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.settings -> {
-                    startActivity(Intent(this, SettingsActivity::class.java))
-                }
                 R.id.info -> {
                     startActivity(Intent(this, InfoActivity::class.java))
                 }
@@ -59,9 +51,6 @@ class MainActivity : BaseActivity() {
                 }
                 R.id.terms -> {
                     startActivity(Intent(this, TermsActivity::class.java))
-                }
-                R.id.signOut -> {
-                    showSignOutDialog() //Placeholder behavior for sign out item
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -101,35 +90,5 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun showSignOutDialog() { //Placeholder function for sign out behavior
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Sign Out")
-        builder.setMessage("Are you sure you want to sign out?")
-
-        builder.setPositiveButton("Yes") { dialog, _ ->
-            Toast.makeText(this, "Signing you out...", Toast.LENGTH_SHORT).show()
-            dialog.dismiss()
-        }
-
-        builder.setNegativeButton("No") { dialog, _ ->
-            dialog.dismiss()
-        }
-
-        val dialog = builder.create()
-        dialog.show()
-    }
-
-    private fun showNotificationDialog() { //Placeholder function for notifications
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Notification")
-        builder.setMessage("Notifications are opened")
-
-        builder.setPositiveButton("Close") { dialog, _ ->
-            dialog.dismiss()
-        }
-
-        val dialog = builder.create()
-        dialog.show()
-    }
 
 }

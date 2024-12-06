@@ -75,20 +75,11 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/galano_reg"
                 android:gravity="center"
-                android:text="Steady (Seismic and Terrain Emergency Alert Directory) makes it possible for your smartphone to receive real-time
-earthquake alerts. STEADY, an IT project, was founded in 2024 with the goal of developing a crowdsourced earthquake early warning system using smartphone networks. Over a thousand of individuals participated in the program, and over 3,000 real-time earthquake alerts were sent by the system. Steady is now the sole public alarm system available in Baguio City."
+                android:text="Steady (Seismic and Terrain Emergency Alert Directory) aims to assist you in navigating and locating safe locations during times of disaster, while at the same time providing you with news and statistics that would help you make better informed decisions during times of heavy rain, landslides, or earthquakes."
                 android:textColor="#D7B98E"
                 android:textSize="19sp"
                 android:layout_marginBottom="20dp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/galano_reg"
-                android:gravity="center"
-                android:text="The goal is to detect an earthquake's shaking in real time using the accelerometer built into smartphones. All of the smartphones in the impacted region receive an alert when an earthquake is detected. If you are not too near the epicenter, you will be able to hear the signal before the earthquake's damaging waves reach you, giving you time to seek shelter."
-                android:textColor="#D7B98E"
-                android:textSize="19sp" />
 
         </LinearLayout>
 
