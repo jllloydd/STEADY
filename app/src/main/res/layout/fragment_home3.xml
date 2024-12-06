@@ -21,31 +21,31 @@
 
             <!-- Landslide Prediction Card -->
             <RelativeLayout
-                android:clickable="true"
-                android:focusable="true"
+                android:id="@+id/rainfall_risk_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:layout_margin="10dp"
-                android:background="@drawable/rounded_white">
+                android:background="@drawable/rounded_white"
+                android:clickable="true"
+                android:focusable="true">
 
                 <TextView
-                    android:id="@+id/prediction_title"
-                    android:layout_width="match_parent"
+                    android:id="@+id/rainfall_risk_title"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
+                    android:textColor="@color/brown"
                     android:textStyle="bold"
-                    android:textSize="23sp"
+                    android:textSize="25sp"
+                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/galano_semi"
-                    android:text="Landslide Prediction" />
+                    android:text="Rainfall Risk (12hr)" />
 
                 <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/landslide_frequency_chart"
+                    android:id="@+id/line_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_below="@id/prediction_title"
-                    android:layout_marginTop="16dp"/>
-
+                    android:layout_height="300dp"
+                    android:layout_marginTop="40dp"/>
             </RelativeLayout>
 
             <!-- High Risk Areas Card -->
@@ -62,7 +62,7 @@
                     android:id="@+id/hr_areas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
+                    android:textColor="@color/brown"
                     android:textStyle="bold"
                     android:textSize="23sp"
                     android:fontFamily="@font/galano_semi"
@@ -94,9 +94,9 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/brown"
                     android:textStyle="bold"
-                    android:textSize="25sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/galano_semi"
-                    android:text="Landslide Risk" />
+                    android:text="Landslide Risk during High Precipitation" />
 
                 <TextView
                     android:id="@+id/landslide_risk_location"
@@ -165,7 +165,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#000000"
+                        android:textColor="@color/brown"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:fontFamily="@font/galano_semi"

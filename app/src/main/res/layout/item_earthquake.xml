@@ -33,5 +33,5 @@
         android:textColor="#808080"
         android:fontFamily="@font/galano_semi"
         android:ellipsize="end"
-        android:maxLines="2" />
-</LinearLayout> 
+        android:maxLines="3" />
+</LinearLayout>

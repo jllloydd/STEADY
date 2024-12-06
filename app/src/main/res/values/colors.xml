@@ -14,4 +14,6 @@
     <color name="light_brown">#e8d4b4</color>
     <color name="lighter_brown">#A1887F</color>
     <color name="lightest_brown">#BCAAA4</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
 </resources>
