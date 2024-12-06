@@ -53,8 +53,11 @@ class Home3 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
-        // Initialize all components
+
+        earthquakeRecyclerView = view.findViewById(R.id.earthquake_list)
+        earthquakeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        earthquakeRecyclerView.adapter = EarthquakeAdapter(emptyList())
+
         setupLandslideFrequencyChart()
         setupHighRiskAreasChart()
         setupLandslideRiskIndicator()
@@ -246,65 +249,30 @@ class Home3 : Fragment() {
     }
 
     private fun setupRecentEarthquakes() {
-        earthquakeRecyclerView = view?.findViewById(R.id.earthquake_list)!!
-        earthquakeRecyclerView.layoutManager = LinearLayoutManager(context)
-        
-        // Updated mock data with varied locations
-        val earthquakes = listOf(
-            EarthquakeData(
-                time = "2 days ago",
-                magnitude = "M2.8",
-                distance = "32km from Baguio"  // Near La Trinidad
-            ),
-            EarthquakeData(
-                time = "4 days ago",
-                magnitude = "M3.2",
-                distance = "45km from Tublay"  // Tublay, Benguet
-            ),
-            EarthquakeData(
-                time = "5 days ago",
-                magnitude = "M2.5",
-                distance = "68km from Sagada"  // Sagada area
-            ),
-            EarthquakeData(
-                time = "1 week ago",
-                magnitude = "M3.5",
-                distance = "85km from Bontoc"  // Mountain Province
-            ),
-            EarthquakeData(
-                time = "2 weeks ago",
-                magnitude = "M4.1",
-                distance = "95km from Banaue"  // Ifugao area
-            ),
-            EarthquakeData(
-                time = "2 weeks ago",
-                magnitude = "M2.7",
-                distance = "73km from Tabuk"  // Kalinga area
-            ),
-            EarthquakeData(
-                time = "3 weeks ago",
-                magnitude = "M3.0",
-                distance = "120km from Luna"  // Apayao area
-            ),
-            EarthquakeData(
-                time = "1 month ago",
-                magnitude = "M3.8",
-                distance = "145km from Bangued"  // Abra region
-            ),
-            EarthquakeData(
-                time = "1 month ago",
-                magnitude = "M2.6",
-                distance = "55km from Itogon"  // Itogon area
-            ),
-            EarthquakeData(
-                time = "1 month ago",
-                magnitude = "M3.3",
-                distance = "88km from Tuba"  // Tuba area
-            )
-        )
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://earthquake.usgs.gov/fdsnws/event/1/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
-        earthquakeRecyclerView.adapter = EarthquakeAdapter(earthquakes)
+        val service = retrofit.create(EarthquakeService::class.java)
+
+        lifecycleScope.launch {
+            try {
+                val response = service.getEarthquakes()
+                val earthquakes = response.features.map {
+                    EarthquakeData(
+                        time = SimpleDateFormat("dd MMM yyyy", Locale.US).format(Date(it.properties.time)),
+                        magnitude = "M${it.properties.mag}",
+                        distance = it.properties.place
+                    )
+                }
+                earthquakeRecyclerView.adapter = EarthquakeAdapter(earthquakes)
+            } catch (e: Exception) {
+                Log.e("Home3", "Error fetching earthquake data: ${e.message}")
+            }
+        }
     }
+
 }
 
 data class EarthquakeData(
@@ -313,9 +281,9 @@ data class EarthquakeData(
     val distance: String
 )
 
-class EarthquakeAdapter(private val earthquakes: List<EarthquakeData>) : 
+class EarthquakeAdapter(private val earthquakes: List<EarthquakeData>) :
     RecyclerView.Adapter<EarthquakeAdapter.ViewHolder>() {
-    
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val timeText: TextView = view.findViewById(R.id.time_text)
         val magnitudeText: TextView = view.findViewById(R.id.magnitude_text)
@@ -330,55 +298,29 @@ class EarthquakeAdapter(private val earthquakes: List<EarthquakeData>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val earthquake = earthquakes[position]
+
+        // Set text properties dynamically
         holder.timeText.text = earthquake.time
         holder.magnitudeText.text = earthquake.magnitude
         holder.distanceText.text = earthquake.distance
+
+        // Example of dynamically changing text size based on content
+        if (earthquake.magnitude.length > 5) {
+            holder.magnitudeText.textSize = 14f
+        } else {
+            holder.magnitudeText.textSize = 16f
+        }
+
+        // Example of changing text color based on magnitude
+        val magnitudeValue = earthquake.magnitude.substring(1).toDoubleOrNull() ?: 0.0
+        holder.magnitudeText.setTextColor(
+            if (magnitudeValue >= 5.0) Color.RED else Color.BLACK
+        )
     }
 
     override fun getItemCount() = earthquakes.size
 }
 
-// Add interface for USGS API
-interface USGSService {
-    @GET("query")
-    suspend fun getEarthquakes(
-        @Query("format") format: String = "geojson",
-        @Query("latitude") latitude: Double = 16.4023,  // Baguio City coordinates
-        @Query("longitude") longitude: Double = 120.5960,
-        @Query("maxradiuskm") radius: Int = 150,  // Focus on CAR region
-        @Query("starttime") startTime: String = getLastMonthDate(),
-        @Query("minmagnitude") minMagnitude: Double = 2.0,  // Lowered to show more earthquakes
-        @Query("orderby") orderBy: String = "time",  // Order by most recent
-        @Query("limit") limit: Int = 50  // Show more results
-    ): EarthquakeResponse
-}
-
-// Add data classes for API response
-data class EarthquakeResponse(
-    val features: List<Feature>
-)
-
-data class Feature(
-    val properties: Properties,
-    val geometry: Geometry
-)
-
-data class Geometry(
-    val coordinates: List<Double>
-)
-
-data class Properties(
-    val mag: Double,
-    val time: Long,
-    val place: String
-)
-
-// Add this helper function
-private fun getLastMonthDate(): String {
-    val calendar = Calendar.getInstance()
-    calendar.add(Calendar.MONTH, -3)  // Go back 3 months instead of 1
-    return SimpleDateFormat("yyyy-MM-dd", Locale.US).format(calendar.time)
-}
 
 // Add the calculateDistance function
 private fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {

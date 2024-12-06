@@ -16,8 +16,9 @@
 
     <TextView
         android:id="@+id/magnitude_text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:textSize="12sp"
         android:textColor="#808080"
         android:fontFamily="@font/galano_semi"
@@ -27,10 +28,10 @@
         android:id="@+id/distance_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:textSize="12sp"
         android:textColor="#808080"
         android:fontFamily="@font/galano_semi"
         android:ellipsize="end"
-        android:maxLines="1" />
+        android:maxLines="2" />
 </LinearLayout> 
