@@ -325,6 +325,8 @@ class Home1 : Fragment() {
         Log.d("Home1", "Clearing route and markers")
         mapView.overlays.clear()
 
+        fusedLocationClient.removeLocationUpdates(locationCallback)
+
         isNavigationActive = false // Reset navigation state
 
         referenceLocation?.let { currentLocation ->
@@ -333,6 +335,10 @@ class Home1 : Fragment() {
             currentMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
             currentMarker.title = "Current Location"
             mapView.overlays.add(currentMarker)
+            val currentLocationOverlay = CurrentLocationOverlay {
+                resetToCurrentLocation()
+            }
+            mapView.overlays.add(currentLocationOverlay)
         }
 
         mapView.invalidate()
