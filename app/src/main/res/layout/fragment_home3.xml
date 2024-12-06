@@ -52,13 +52,11 @@
                     android:gravity="start"
                     android:text="Frequency of Landslides" />
 
-                <ImageView
-                    android:id="@+id/line_placeholder"
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/landslide_frequency_chart"
                     android:layout_below="@id/news_info"
-                    android:src="@drawable/line_placeholder"
                     android:layout_height="80dp"
-                    android:layout_width="match_parent"
-                    android:background="@drawable/rounded_outline" />
+                    android:layout_width="match_parent" />
             </RelativeLayout>
 
             <!-- High Risk Areas Card -->
@@ -77,13 +75,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:src="@drawable/pie_placeholder"
-                        android:scaleType="centerCrop"
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/high_risk_chart"
                         android:layout_height="150dp"
                         android:layout_width="150dp"
-                        android:layout_marginEnd="20dp"
-                        android:background="@drawable/rounded_outline" />
+                        android:layout_marginEnd="20dp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -175,12 +171,12 @@
 
                     </LinearLayout>
 
-                    <ImageView
-                        android:src="@drawable/percentage_placeholder"
+                    <ProgressBar
+                        android:id="@+id/risk_progress"
+                        style="?android:attr/progressBarStyleHorizontal"
                         android:layout_height="130dp"
                         android:layout_width="100dp"
-                        android:layout_marginEnd="20dp"
-                        android:background="@drawable/rounded_outline" />
+                        android:progress="55" />
 
                 </LinearLayout>
 
@@ -211,12 +207,10 @@
                         android:fontFamily="@font/galano_semi"
                         android:text="Recent Earthquakes" />
 
-                    <ImageView
-                        android:src="@drawable/table_placeholder"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/earthquake_list"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:background="@drawable/rounded_outline" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
