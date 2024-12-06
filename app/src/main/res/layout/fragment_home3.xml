@@ -25,38 +25,27 @@
                 android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="16dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/rounded_white">
 
                 <TextView
-                    android:id="@+id/news_title"
+                    android:id="@+id/prediction_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:textStyle="bold"
                     android:textSize="23sp"
                     android:fontFamily="@font/galano_semi"
-                    android:gravity="start"
                     android:text="Landslide Prediction" />
-
-                <TextView
-                    android:id="@+id/news_info"
-                    android:layout_below="@id/news_title"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#808080"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/galano_semi"
-                    android:gravity="start"
-                    android:text="Frequency of Landslides" />
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/landslide_frequency_chart"
-                    android:layout_below="@id/news_info"
-                    android:layout_height="80dp"
-                    android:layout_width="match_parent" />
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_below="@id/prediction_title"
+                    android:layout_marginTop="16dp"/>
+
             </RelativeLayout>
 
             <!-- High Risk Areas Card -->
@@ -67,131 +56,106 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_margin="10dp"
-                android:background="@drawable/rounded_white"
-                android:layout_marginTop="10dp">
+                android:background="@drawable/rounded_white">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/hr_areas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:textSize="23sp"
+                    android:fontFamily="@font/galano_semi"
+                    android:text="High Risk Areas" />
 
-                    <com.github.mikephil.charting.charts.PieChart
-                        android:id="@+id/high_risk_chart"
-                        android:layout_height="150dp"
-                        android:layout_width="150dp"
-                        android:layout_marginEnd="20dp" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/hr_areas"
-                            android:textColor="#000000"
-                            android:textStyle="bold"
-                            android:textSize="23sp"
-                            android:fontFamily="@font/galano_semi"
-                            android:text="High Risk Areas" />
-
-                        <TextView
-                            android:layout_below="@id/hr_areas"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/list_hr"
-                            android:textColor="#808080"
-                            android:textSize="15sp"
-                            android:fontFamily="@font/galano_semi"
-                            android:gravity="start"
-                            android:text="1. Irisan\n2. Asin\n3. Kennon\n4. Ambiong" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/high_risk_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@id/hr_areas"
+                    android:layout_marginTop="10dp"/>
 
             </RelativeLayout>
 
-            <!-- Landslide Risk Card -->
+            <!-- Landslide Risk Card (Third) -->
             <RelativeLayout
-                android:clickable="true"
-                android:focusable="true"
+                android:id="@+id/landslide_risk_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="16dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/rounded_white"
-                android:layout_marginTop="10dp">
+                android:clickable="true"
+                android:focusable="true">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/landslide_risk_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
+                    android:textColor="@color/brown"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:fontFamily="@font/galano_semi"
+                    android:text="Landslide Risk" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:orientation="vertical"
-                        >
+                <TextView
+                    android:id="@+id/landslide_risk_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/landslide_risk_title"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/text_brown"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/galano_semi"
+                    android:text="Loading..." />
 
-                        <TextView
-                            android:id="@+id/landslide_risk_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#000000"
-                            android:textStyle="bold"
-                            android:textSize="25sp"
-                            android:fontFamily="@font/galano_semi"
-                            android:text="Landslide Risk" />
+                <TextView
+                    android:id="@+id/landslide_risk_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/landslide_risk_location"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/brown"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/galano_semi"
+                    android:text="Loading..." />
 
-                        <TextView
-                            android:id="@+id/landslide_risk_location"
-                            android:layout_below="@id/landslide_risk_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#808080"
-                            android:textSize="15sp"
-                            android:fontFamily="@font/galano_semi"
-                            android:gravity="start"
-                            android:text="Baguio City" />
+                <TextView
+                    android:id="@+id/risk_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/brown"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/galano_semi"
+                    android:text="0%" />
 
-                        <TextView
-                            android:layout_below="@id/landslide_risk_location"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="#000000"
-                            android:textSize="35sp"
-                            android:fontFamily="@font/galano_semi"
-                            android:gravity="start"
-                            android:text="10-25-2024" />
-
-
-                    </LinearLayout>
-
-                    <ProgressBar
-                        android:id="@+id/risk_progress"
-                        style="?android:attr/progressBarStyleHorizontal"
-                        android:layout_height="130dp"
-                        android:layout_width="100dp"
-                        android:progress="55" />
-
-                </LinearLayout>
+                <ProgressBar
+                    android:id="@+id/risk_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="40dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressTint="@color/brown"
+                    android:progressBackgroundTint="@color/text_light" />
 
             </RelativeLayout>
 
-            <!-- Recent Earthquakes Card -->
+            <!-- Recent Earthquakes Card (Fourth) -->
             <RelativeLayout
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:background="@drawable/rounded_white"
-                android:layout_marginTop="10dp">
+                android:padding="8dp"
+                android:background="@drawable/rounded_white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -203,22 +167,28 @@
                         android:layout_height="wrap_content"
                         android:textColor="#000000"
                         android:textStyle="bold"
-                        android:textSize="23sp"
+                        android:textSize="20sp"
                         android:fontFamily="@font/galano_semi"
                         android:text="Recent Earthquakes" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/earthquake_list"
+                    <!-- Reduced height of ScrollView -->
+                    <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="100dp">  <!-- Reduced from 200dp to 150dp -->
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/earthquake_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false" />
+
+                    </ScrollView>
 
                 </LinearLayout>
-
 
             </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>
-
 
 </LinearLayout>

@@ -12,4 +12,6 @@
     <color name="text_brown">#b99976</color>
     <color name="text_light">#e5d3b3</color>
     <color name="light_brown">#e8d4b4</color>
+    <color name="lighter_brown">#A1887F</color>
+    <color name="lightest_brown">#BCAAA4</color>
 </resources>

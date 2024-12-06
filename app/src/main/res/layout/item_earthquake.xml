@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
+    android:padding="4dp"
     android:orientation="horizontal">
 
     <TextView
@@ -10,25 +10,27 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textColor="#808080"
         android:fontFamily="@font/galano_semi" />
 
     <TextView
         android:id="@+id/magnitude_text"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textColor="#808080"
-        android:fontFamily="@font/galano_semi" />
+        android:fontFamily="@font/galano_semi"
+        android:layout_marginHorizontal="8dp" />
 
     <TextView
         android:id="@+id/distance_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textColor="#808080"
-        android:fontFamily="@font/galano_semi" />
+        android:fontFamily="@font/galano_semi"
+        android:ellipsize="end"
+        android:maxLines="1" />
 </LinearLayout> 
