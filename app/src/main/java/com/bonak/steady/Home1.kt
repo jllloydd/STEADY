@@ -38,6 +38,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.text.Editable
@@ -53,6 +54,10 @@ import com.bonak.steady.dangerLocations
 import com.bonak.steady.OsrmApiService
 import com.bonak.steady.OsrmResponse
 import android.speech.tts.TextToSpeech
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 class Home1 : Fragment() {
 
@@ -150,24 +155,25 @@ class Home1 : Fragment() {
             input.setAdapter(adapter)
 
             input.addTextChangedListener(object : TextWatcher {
+                private var searchJob: Job? = null
+
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     searchJob?.cancel()
                     searchJob = CoroutineScope(Dispatchers.IO).launch {
+                        delay(300) // Debounce delay of 300ms
                         try {
-                            val suggestions = NominatimApi.service.searchLocations(s.toString())
+                            val results = NominatimApi.service.searchLocations(s.toString())
                             withContext(Dispatchers.Main) {
-                                if (suggestions.isNotEmpty()) {
-                                    adapter.clear()
-                                    adapter.addAll(suggestions.map { it.display_name })
-                                    adapter.notifyDataSetChanged()
-                                } else {
-
+                                adapter.clear()
+                                if (results.isNotEmpty()) {
+                                    adapter.addAll(results.map { it.display_name })
                                 }
+                                adapter.notifyDataSetChanged()
                             }
                         } catch (e: Exception) {
-
+                            Log.e("Home1", "Error fetching suggestions: ${e.message}")
                         }
                     }
                 }
@@ -406,15 +412,20 @@ class Home1 : Fragment() {
     }
 
     private fun performSearch(query: String) {
-        val geocoder = Geocoder(requireContext())
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://nominatim.openstreetmap.org/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val service = retrofit.create(NominatimService::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val addresses: List<Address>? = geocoder.getFromLocationName(query, 1)
+                val results = service.searchLocations(query)
                 withContext(Dispatchers.Main) {
-                    if (!addresses.isNullOrEmpty()) {
-                        val address = addresses[0]
-                        val geoPoint = GeoPoint(address.latitude, address.longitude)
+                    if (results.isNotEmpty()) {
+                        val result = results[0]
+                        val geoPoint = GeoPoint(result.lat.toDouble(), result.lon.toDouble())
 
                         referenceLocation = geoPoint
                         updateNearestLocationsUI()
@@ -438,9 +449,14 @@ class Home1 : Fragment() {
 
                         mapViewModel.mapCenter = geoPoint
                         mapViewModel.mapZoomLevel = 18.0
+
+                        // Make the locate buttons invisible
+                        //view?.findViewById<Button>(R.id.loc_ecenter_btn)?.visibility = View.INVISIBLE
+                        //view?.findViewById<Button>(R.id.loc_hospital_btn)?.visibility = View.INVISIBLE
                     }
                 }
             } catch (e: Exception) {
+                Log.e("Home1", "Error performing search: ${e.message}")
             }
         }
     }
